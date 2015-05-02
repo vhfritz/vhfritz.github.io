@@ -1,0 +1,112 @@
+<html>
+<head>
+  <meta name=viewport content='width=600' />
+  <style>
+  button {
+    margin: 5px 20px;
+    font-size: 20px;
+    padding: 4px 12px;
+  }
+  img {
+    margin: 7px;
+  }
+  .spin-right {
+    animation: spin-right 1s;
+    -webkit-animation: spin-right 1s;
+    -moz-animation: spin-right 1s;
+  }
+  .spin-left {
+    animation: spin-left 1s;
+    -webkit-animation: spin-left 1s;
+    -moz-animation: spin-left 1s;
+  }
+  @keyframes spin-right {
+    0% {
+      opacity: 0;
+      -webkit-transform: rotate(-360deg);
+      transform: rotate(-360deg);
+    }
+  }
+  @-webkit-keyframes spin-right {
+    0% {
+      opacity: 0;
+      -webkit-transform: rotate(-360deg);
+    }
+  }
+  @-moz-keyframes spin-right {
+    0% {
+      opacity: 0;
+      -moz-transform: rotate(-360deg);
+    }
+  }
+  @keyframes spin-left {
+    0% {
+      opacity: 0;
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spin-left {
+    0% {
+      opacity: 0;
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes spin-left {
+    0% {
+      opacity: 0;
+      -moz-transform: rotate(360deg);
+    }
+  }
+  body {
+    background-image: url(wood.png);
+    background-size: 100% 100%;
+  }
+  </style>
+</head>
+<body>
+<script>
+function rollCustom() {
+  var numDice = parseInt(document.getElementById("numDice").value);
+  roll(numDice);
+}
+
+function roll(numDice) {
+  var diceAreaEl = document.getElementById("diceArea");
+  diceAreaEl.innerHTML = "";
+  for (var i = 0; i < numDice; i++) {
+    var randomSide = Math.floor(Math.random() * 6) + 1;
+    var resultEl = document.createElement("img");
+    resultEl.src = "MMD"+randomSide+".png";
+    resultEl.style.width = "100px";
+    resultEl.style.height = "100px";
+    resultEl.className = (Math.random() < .5) ? "spin-right" : "spin-left";
+    diceAreaEl.appendChild(resultEl);
+  }
+}
+</script>
+<button onclick="roll(1)">1</button>
+<button onclick="roll(2)">2</button>
+<button onclick="roll(3)">3</button>
+<button onclick="roll(4)">4</button>
+<button onclick="roll(5)">5</button>
+<hr>
+<p id="diceArea"></p>
+<!--
+<hr>
+Num dice: <input type="text" id="numDice" value="3">
+<button onclick="rollCustom()">Roll!</button>
+-->
+<script>
+  var images = new Array();
+  function preload() {
+    for (var i = 1; i < 7; i++) {
+      images[i] = new Image();
+      images[i].src = "MMD"+i+".png";
+    }
+  }
+  preload();
+  roll(3);
+</script>
+</body>
+</html>
